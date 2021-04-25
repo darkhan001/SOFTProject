@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../static/js/main.js" th:src="@{/js/main.js}"></script>
+    <script type="text/javascript" src="../static/js/modal.js" th:src="@{/js/modal.js}"></script>
+    <script type="text/javascript" src="../static/js/page.js" th:src="@{/js/page.js}"></script>
+    <title>Admin Page</title>
+
+    <style>
+        html {
+            font-size: 14px;
+        }
+
+        .i1 {
+            margin-top: -5px;
+            margin-bottom: -15px;
+        }
+        #myTable tr:hover{
+            background-color: #E6E9EC;
+        }
+        #adminTable tr:hover{
+            background-color: #E6E9EC;
+        }
+        .headerr{
+            color: #fff;
+            background: linear-gradient(to right, #0e2e78, #006aff);
+        }
+        .menuBack{
+            background: #E8E8E8;
+            height: 800px;
+            padding: 0;
+        }
+        body{
+            background: #F3EBF6;
+        }
+
+
+        #Ayanphoto{
+            background-image: url("https://www.pinclipart.com/picdir/big/496-4969746_businessman-clipart-standing-cartoon-businessman-vector-png-transparent.png");
+            position:absolute;
+            top:150px;
+            left:500px;
+            width:400px;
+            height: 500px;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        #Ayanphoto1{
+            position:absolute;
+            top:150px;
+            left:620px;
+            width:450px;
+            height: 500px;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-image: url("https://www.tradingpedia.com/wp-content/uploads/2020/11/journal.svg%22");
+        }
+
+    </style>
+</head>
+<body>
+<!-- Header -->
+<nav class="navbar navbar-dark sticky-top bg-dark headerr" style="height: 45px;display:block;text-align: right">
+    <p class="navbar-brand mb-3" style="position:relative;float: left">Circulation of periodicals</p>
+    <p id="header-info" class="navbar-brand mb-3" style=""></p>
+    <a class="navbar-brand mb-3" href="/logout" style="">Logout</a>
+</nav>
+
+<div class="admin-panel mt-3">
+    <div class="row" style="margin-right: 0px">
+        <!-- Menu -->
+        <div class="menu col-md-3 menuBack">
+            <nav class="nav flex-column">
+                <p class="nav-link btn btn-lg  btn-block text-center" style="background: #D0D0D0;color: #0e2e78;margin: 0;font-weight: bold;">Menu</p>
+                <a id="adminBtn" class="nav-link active btn btn-lg btn-primary btn-block text-left" style="padding-left:35px;margin-top: 0">
+                    <i class="fa fa-fw fa-user" style="padding-right: 10px"></i>Admin</a>
+                <a id="adminInfoBtn" class="nav-link mt-2 btn btn-lg text-primary btn-block text-left" style="padding-left:35px">
+                    <i class="fa fa-fw fa-user" style="padding-right: 10px"></i>User</a>
+                <a id="magazineBtn" class="nav-link mt-2 btn btn-lg text-primary btn-block text-left" style="padding-left:35px">
+                    <i class="fa fa-fw fa-book" style="padding-right: 10px"></i>Magazines</a>
+            </nav>
+        </div>
+
+        <!-- Panel-->
+        <div id="panelDiv" class="panel col-md-9">
+
+            <!-- Admin panel -->
+            <div id="admin-panel">
+                <h2 class="mb-3">Admin panel</h2>
+
+                <div id="adminCrudPage">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#usersTable" data-toggle="tab">Users table</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#newUser" data-toggle="tab">New User</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content mt-3">
+                        <!-- Users Table -->
+                        <div class="tab-pane active" id="usersTable">
+                            <div class="card">
+                                <div class="card-header">All users</div>
+                                <div class="card-body">
+                                    <table class="table table-hover" id="myTable">
+                                        <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Age</th>
+                                            <th>Email</th>
+                                            <th>Role</th>
+                                            <th>Edit</th>
+                                            <th>Delete</th>
+                                        </tr>
+
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- New User -->
+                        <div class="tab-pane" id="newUser">
+                            <div id="Ayanphoto">
+
+                            </div>
+                            <h4>Add new user</h4>
+
+                            <form id="myForm"
+                                  class="form-signin col-md-4 text-center font-weight-bold">
+                                <input type="text" id="firstName" name="firstName" class="form-control" placeholder="First name" style="margin-bottom: 15px;margin-top:15px;width: 500px;text-align: center"
+                                       required="" autofocus="">
+
+                                <input type="text" id="lastName" name="lastName" class="form-control" placeholder="Last name" required="" style="margin-bottom: 15px;margin-top:15px;width: 500px;text-align: center"
+                                       autofocus="">
+
+                                <input type="number" id="age" name="age" class="form-control" placeholder="Age" required="" style="margin-bottom: 15px;margin-top:15px;width: 500px;text-align: center"
+                                       autofocus="">
+
+                                <input type="email" id="email" name="email" class="form-control" placeholder="Email address" style="margin-bottom: 15px;margin-top:15px;width: 500px;text-align: center"
+                                       required="" autofocus="">
+
+                                <input type="password" id="password" name="password" class="form-control" placeholder="Password" style="margin-bottom: 15px;margin-top:15px;width: 500px;text-align: center"
+                                       required="">
+
+                                <select multiple class="form-control roles" style="height: 55px;margin-bottom: 15px;margin-top:15px;width: 500px;text-align: center" id="role" name="role">
+                                    <option>ADMIN</option>
+                                    <option>USER</option>
+                                </select>
+                                <input class="btn mt-2 btn-success btn-block" style="height:30px;margin-bottom: 15px;margin-top:15px;width: 200px;text-align: center;position:relative;left:140px" type="submit" value="Add new user"/>
+                                <hr style="height:10px;border-width:2px;width:500px;border-color: blue;border-radius:1px;margin-top:30px">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin information panel-->
+            <div id="admin-info-panel">
+
+                <h2 class="mb-3">User information-page</h2>
+
+                <div id="adminInfoCrudPage">
+
+                    <div class="tab-content mt-3">
+                        <!-- Users Table -->
+                        <div class="tab-pane active" id="adminTable">
+                            <div class="card">
+                                <div class="card-header">All users</div>
+                                <div class="card-body">
+                                    <table class="table table-hover" id="adminInfoTable">
+
+                                        <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Age</th>
+                                            <th>Email</th>
+                                            <th>Role</th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Magazine panel -->
+            <div id="magazine-panel">
+
+                <h2 class="mb-3">Magazine page</h2>
+
+                <div id="magazinePage">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#magazinePanelTable" data-toggle="tab">Magazine table</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#newMagazine" data-toggle="tab">New Magazine</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content mt-3">
+                        <!-- Users Table -->
+                        <div class="tab-pane active" id="magazinePanelTable">
+                            <div class="card">
+                                <div class="card-header">About Magazine</div>
+                                <div class="card-body">
+                                    <table class="table table-hover" id="magazineTable">
+                                        <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Name</th>
+                                            <th>Author</th>
+                                            <th>Edition</th>
+                                            <th>Publisher</th>
+                                            <th>Language</th>
+                                            <th>Type</th>
+                                            <th>Page</th>
+                                            <th>Reader</th>
+                                            <th>Status</th>
+                                            <th>Registered</th>
+                                            <th>Updated</th>
+                                            <th>Edit</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+
+                                </div>
+                            </div></div>
+
+                        <!-- New Magazine -->
+                        <div class="tab-pane" id="newMagazine">
+                            <div id="Ayanphoto1"></div>
+                            <h4>Add new magazine</h4>
+
+                            <form id="magazineForm"
+                                  class="form-signin col-md-4 text-center font-weight-bold">
+                                <input type="text" id="name" name="name" class="form-control" placeholder="Name" style="margin-bottom: 15px;margin-top:15px;width: 500px;text-align: center"
+                                       required="" autofocus="">
+
+                                <input type="text" id="author" name="author" class="form-control" placeholder="Author" required="" style="margin-bottom: 15px;margin-top:15px;width: 500px;text-align: center"
+                                       autofocus="">
+
+                                <input type="text" id="edition" name="edition" class="form-control" placeholder="Edition" required="" style="margin-bottom: 15px;margin-top:15px;width: 500px;text-align: center"
+                                       autofocus="">
+
+                                <input type="text" id="publisher" name="publisher" class="form-control" placeholder="Publisher" style="margin-bottom: 15px;margin-top:15px;width: 500px;text-align: center"
+                                       required="" autofocus="">
+
+                                <select multiple class="form-control roles" style="height: 55px;margin-bottom: 15px;margin-top:15px;width: 500px;text-align: center" id="language" name="language" >
+                                    <option>en</option>
+                                    <option>ru</option>
+                                    <option>kz</option>
+                                </select>
+
+                                <select multiple class="form-control roles" style="height: 55px;margin-bottom: 15px;margin-top:15px;width: 500px;text-align: center" id="type" name="type">
+                                    <option>book</option>
+                                    <option>journal</option>
+                                    <option>manga</option>
+                                    <option>comics</option>
+                                </select>
+
+                                <input type="number" id="page" name="page" class="form-control" placeholder="Page" style="margin-bottom: 15px;margin-top:15px;width: 500px;text-align: center"
+                                       required="">
+
+                                <select multiple class="form-control roles" style="height: 55px;margin-bottom: 15px;margin-top:15px;width: 500px;text-align: center" id="selectReader" name="selectReader">
+                                </select>
+
+                                <input class="btn mt-2 btn-lg btn-success btn-block" type="submit" value="Add new magazine" style="margin-bottom: 15px;margin-top:15px;width: 500px;text-align: center"/>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- Edit modal for user -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+    <form id="editForm">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit page</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body form-signin col-md-6 offset-md-3 text-center font-weight-bold"
+                     style="font-size: 13px">
+                    <form>
+                        <input type="hidden" id="hiddenId" name="idEdit" value="">
+                        <div class="form-group">
+                            <label for="idEdit" class="col-form-label">ID</label>
+                            <input type="number" disabled class="form-control i1" id="idEdit" name="idEdit" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="firstNameEdit" class="col-form-label">First name</label>
+                            <input type="text" class="form-control i1" id="firstNameEdit" name="firstNameEdit" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastNameEdit" class="col-form-label">Last name</label>
+                            <input type="text" class="form-control i1" id="lastNameEdit" name="lastNameEdit" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="ageEdit" class="col-form-label">Age</label>
+                            <input type="number" class="form-control i1" id="ageEdit" name="ageEdit" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="emailEdit" class="col-form-label">Email</label>
+                            <input type="email" class="form-control i1" id="emailEdit" name="emailEdit" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="passwordEdit" class="col-form-label">Password</label>
+                            <input type="hidden" id="passwordHiddenEdit">
+                            <input type="password" class="form-control i1" id="passwordEdit" name="passwordEdit">
+                        </div>
+                        <div class="form-group">
+                            <label for="roleEdit" class="col-form-label">Role</label>
+                            <select multiple class="form-control" style="height: 55px" id="roleEdit" name="roleEdit">
+                                <option>ADMIN</option>
+                                <option>USER</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" value="Edit"/>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Delete modal for user -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel1"
+     aria-hidden="true">
+    <form id="deleteForm">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Edit page</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body form-signin col-md-6 offset-md-3 text-center font-weight-bold"
+                     style="font-size: 13px">
+                    <form>
+                        <input type="hidden" id="hiddendeleteId" name="idDelete" value="">
+                        <div class="form-group">
+                            <label for="idDelete" class="col-form-label">ID</label>
+                            <input type="number" disabled class="form-control i1" id="idDelete" name="idDelete"
+                                   value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="firstNameDelete" class="col-form-label">First name</label>
+                            <input type="text" disabled class="form-control i1" id="firstNameDelete"
+                                   name="firstNameDelete" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastNameDelete" class="col-form-label">Last name</label>
+                            <input type="text" disabled class="form-control i1" id="lastNameDelete"
+                                   name="lastNameDelete" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="ageDelete" class="col-form-label">Age</label>
+                            <input type="number" disabled class="form-control i1" id="ageDelete" name="ageDelete"
+                                   value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="emailDelete" class="col-form-label">Email</label>
+                            <input type="email" disabled class="form-control i1" id="emailDelete" name="emailDelete"
+                                   value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="roleDelete" class="col-form-label">Role</label>
+                            <select multiple disabled class="form-control" style="height: 55px" id="roleDelete"
+                                    name="roleDelete">
+                                <option>ADMIN</option>
+                                <option>USER</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-danger" value="Delete"/>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Edit modal for magazine -->
+<div class="modal fade" id="editModalMagazine" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+    <form id="editFormMagazine">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalMagazineLabel">Edit page</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body form-signin col-md-6 offset-md-3 text-center font-weight-bold"
+                     style="font-size: 13px">
+                    <form>
+                        <input type="hidden" id="hiddenMagazineId" name="idEdit" value="">
+                        <div class="form-group">
+                            <label for="idMEdit" class="col-form-label">ID</label>
+                            <input type="number" disabled class="form-control i1" id="idMEdit" name="idMEdit" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="nameEdit" class="col-form-label">Name</label>
+                            <input type="text" class="form-control i1" id="nameEdit" name="nameEdit" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="authorEdit" class="col-form-label">Author</label>
+                            <input type="text" class="form-control i1" id="authorEdit" name="authorEdit" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="editionEdit" class="col-form-label">Edition</label>
+                            <input type="text" class="form-control i1" id="editionEdit" name="editionEdit" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="publisherEdit" class="col-form-label">Publisher</label>
+                            <input type="text" class="form-control i1" id="publisherEdit" name="publisherEdit" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="languageEdit" class="col-form-label">Language</label>
+                            <select multiple class="form-control" style="height: 55px" id="languageEdit" name="languageEdit">
+                                <option>en</option>
+                                <option>ru</option>
+                                <option>kz</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="typeEdit" class="col-form-label">Type</label>
+                            <select multiple class="form-control" style="height: 55px" id="typeEdit" name="typeEdit">
+                                <option>book</option>
+                                <option>journal</option>
+                                <option>manga</option>
+                                <option>comics</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pageEdit" class="col-form-label">Page</label>
+                            <input type="number" class="form-control i1" id="pageEdit" name="pageEdit" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="readerEdit" class="col-form-label">Reader</label>
+                            <select multiple class="form-control roles" style="height: 55px" id="readerEdit" name="readerEdit">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="statusEdit" class="col-form-label">Status</label>
+                            <select multiple class="form-control roles" style="height: 55px" id="statusEdit" name="statusEdit">
+                                <option>initial</option>
+                                <option>reading</option>
+                                <option>read</option>
+                                <option>skip</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" value="Edit"/>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Delete modal for magazine -->
+<div class="modal fade" id="deleteModalMagazine" tabindex="-1" role="dialog" aria-labelledby="ModalLabel1"
+     aria-hidden="true">
+    <form id="deleteFormMagazine">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalMagazineLabel">Edit page</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body form-signin col-md-6 offset-md-3 text-center font-weight-bold"
+                     style="font-size: 13px">
+                    <form>
+                        <input type="hidden" id="hiddenMDeleteId" name="hiddenMDeleteId" value="">
+                        <div class="form-group">
+                            <label for="idMDelete" class="col-form-label">ID</label>
+                            <input type="number" disabled class="form-control i1" id="idMDelete" name="idMDelete"
+                                   value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="nameDelete" class="col-form-label">Name</label>
+                            <input type="text" disabled class="form-control i1" id="nameDelete"
+                                   name="nameDelete" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="authorDelete" class="col-form-label">Author</label>
+                            <input type="text" disabled class="form-control i1" id="authorDelete"
+                                   name="authorDelete" value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="editionDelete" class="col-form-label">Edition</label>
+                            <input type="number" disabled class="form-control i1" id="editionDelete" name="editionDelete"
+                                   value="">
+                        </div>
+                        <div class="form-group">
+                            <label for="publisherDelete" class="col-form-label">Publisher</label>
+                            <input type="email" disabled class="form-control i1" id="publisherDelete" name="publisherDelete"
+                                   value="">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="languageDelete" class="col-form-label">Language</label>
+                            <select multiple disabled class="form-control" style="height: 55px" id="languageDelete"
+                                    name="languageDelete">
+                                <option>en</option>
+                                <option>ru</option>
+                                <option>kz</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="typeDelete" class="col-form-label">Type</label>
+                            <select multiple disabled class="form-control" style="height: 55px" id="typeDelete"
+                                    name="typeDelete">
+                                <option>book</option>
+                                <option>journal</option>
+                                <option>manga</option>
+                                <option>comics</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pageDelete" class="col-form-label">Page</label>
+                            <input type="email" disabled class="form-control i1" id="pageDelete" name="pageDelete"
+                                   value="">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="readerDelete" class="col-form-label">Reader</label>
+                            <select multiple disabled class="form-control roles" style="height: 55px" id="readerDelete" name="readerDelete">
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="statusDelete" class="col-form-label">Status</label>
+                            <select multiple disabled class="form-control roles" style="height: 55px" id="statusDelete" name="statusDelete">
+                                <option>initial</option>
+                                <option>reading</option>
+                                <option>read</option>
+                                <option>skip</option>
+                            </select>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-danger" value="Delete"/>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+</body>
+</html>
+
+

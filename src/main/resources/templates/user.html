@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../static/js/main.js" th:src="@{/js/main.js}"></script>
+    <script type="text/javascript" src="../static/js/user-page.js" th:src="@{/js/user-page.js}"></script>
+    <script type="text/javascript" src="../static/js/user.js" th:src="@{/js/user.js}"></script>
+    <title>User Page</title>
+
+    <style>
+        html {
+            font-size: 14px;
+        }
+        .headerr{
+            color: #fff;
+            background: linear-gradient(to right, #0e2e78, #006aff);        }
+        body{
+            background: white;
+        }
+        .menuBack{
+            background: #E8E8E8;
+            height: 800px;
+            padding: 0;
+        }
+
+        .mar{
+            margin: 0;
+        }
+        .test{
+            width: 700px;
+            height: 360px;
+            position: absolute;
+            top: 250px;
+            right: 200px;
+            background-image: url(https://www.pageuppeople.com/wp-content/uploads/2019/01/Top-60-Employee-Engagement-image14-768x383.png);
+        }
+    </style>
+</head>
+<body>
+<!-- Header -->
+<nav class="navbar navbar-dark sticky-top bg-dark headerr" style="height: 45px;display:block;text-align: right">
+    <p class="navbar-brand mb-3" style="position:relative;float: left;margin: 0 0 0 0">Circulation of periodicals</p>
+    <input id="user-hidden-id" type="hidden"/>
+    <p id="header-info" class="navbar-brand mb-3" style=""></p>
+    <a class="navbar-brand mb-3" href="/logout" style="">Logout</a>
+</nav>
+
+<div class="user-panel mt-3">
+    <div class="row">
+        <!-- Menu -->
+        <div class="menu col-md-3 menuBack">
+            <nav class="nav flex-column" >
+                <p class="nav-link btn btn-lg  btn-block text-center" style="background: #D0D0D0;color: #0e2e78;margin: 0;font-weight: bold;">Menu</p>
+                <a id="userInfoBtn" class="nav-link btn btn-lg text-primary btn-block text-left mar" style="padding-left:35px;margin-top: 0"><i class="fa fa-fw fa-user" style="padding-right: 10px"></i>My Profile</a>
+                <a id="userMagazineBtn" class="nav-link active mt-2 btn btn-lg btn-primary btn-block text-left" style="padding-left:35px"><i class="fa fa-fw fa-book" style="padding-right: 10px"></i>Magazines</a>
+            </nav>
+        </div>
+
+        <!-- Panel-->
+        <div id="userPanelDiv" class="panel col-md-9">
+
+
+            <!-- User Panel-->
+            <div id="user-panel">
+
+                <div class="container">
+                    <div class="main-body">
+
+                        <div class="row gutters-sm">
+
+                            <div class="test">
+
+
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-3" >
+                                                <h6 class="mb-0" style="font-size: 20px">Full Name</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <input type="text" disabled style="border: none;font-size: 20px" id="nameUser" />
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0" style="font-size: 20px">Email</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <input type="text" disabled style="border: none;font-size: 20px" id="emailUser" />
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0" style="font-size: 20px">Age</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <input type="text" disabled style="border: none;font-size: 20px" id="ageUser" />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Magazine panel -->
+            <div id="user-magazine-panel">
+
+                <h2 class="mb-3">Magazine page</h2>
+
+                <div id="magazinePage">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#magazinePanelTable" data-toggle="tab">Magazine table</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content mt-3">
+                        <!-- Users Table -->
+                        <div class="tab-pane active" id="magazinePanelTable">
+                            <div class="card">
+                                <div class="card-header">About Magazine</div>
+                                <div class="card-body">
+                                    <table class="table table-hover" id="userMagazineTable">
+                                        <thead>
+
+
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Author</th>
+                                    <th>Edition</th>
+                                    <th>Publisher</th>
+                                    <th>Language</th>
+                                    <th>Type</th>
+                                    <th>Page</th>
+                                    <th>Reader</th>
+                                    <th>Status</th>
+                                </tr>
+                                </thead>
+                            </table>
+
+                        </div>
+                            </div></div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
